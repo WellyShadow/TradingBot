@@ -9,11 +9,11 @@ client = Client(config.api_key,config.secret)
 
 def klines(symbol):
     try:
-        df=pd.DataFrame(client.get_historical_klines(symbol, Client.KLINE_INTERVAL_15MINUTE, "58 day ago"))
+        df=pd.DataFrame(client.get_historical_klines(symbol, Client.KLINE_INTERVAL_15MINUTE, "1 Nov 2022"))
     except BinanceAPIException as e:
         print(e)
         sleep(60)
-        df=pd.DataFrame(client.get_historical_klines(symbol, Client.KLINE_INTERVAL_15MINUTE, "58 day ago"))
+        df=pd.DataFrame(client.get_historical_klines(symbol, Client.KLINE_INTERVAL_15MINUTE, "1 Nov 2022"))
     df=df.iloc[:,:6]
     df.columns=['Time','Open','High','Low','Close','Volume']
     df = df.set_index('Time')
@@ -49,7 +49,8 @@ def klines(symbol):
     df['Upper3'] = upper3
     df['Lower3'] = lower3
 
-    table600 = df[5000:]
+    #table600 = df[5000:]
+    table600 = df
     return table600
 
 def strategy(symbol,qty,open_pos = False) :

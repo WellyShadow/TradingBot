@@ -29,6 +29,12 @@ def history():
     open_posU1 = False
     open_posU2 = False
     open_posU3 = False
+    trigL1 = False
+    trigL2 = False
+    trigL3 = False
+    trigU1 = False
+    trigU2 = False
+    trigU3 = False
     table600 = bot.klines('BTCUSDT')
     #print(table600)
 
@@ -41,8 +47,23 @@ def history():
     table600['Take_Signal'] = False
 
     for i in range(len(table600)):
+
+        if table600.Lower1[i]>table600.Low[i]:
+            trigL1=True
+        if table600.Lower2[i]>table600.Low[i]:
+            trigL2=True
+        if table600.Lower3[i]>table600.Low[i]:
+            trigL3=True
+
+        if table600.Upper1[i]<table600.High[i]:
+            trigU1=True
+        if table600.Upper2[i]<table600.High[i]:
+            trigU2=True
+        if table600.Upper3[i]<table600.High[i]:
+            trigU3=True
+
         if open_posL1 == False:
-            if table600.Lower1[i]>table600.Low[i]:
+            if (table600.Lower1[i]<table600.Close[i]) and (trigL1):
                 table600.Buy_Signal1[i] = True
                 open_posL1=True
                 buys1.append(i)
@@ -52,11 +73,11 @@ def history():
                 table600.Buy_Signal1[i] = False
                 table600.Take_Signal[i] = True
                 open_posL1=False
-                #buyorder.append([[buys1[-1]],[i]])
+                trigL1=False
                 takeL1.append(i)
         
         if open_posL2 == False:
-            if table600.Lower2[i]>table600.Low[i]:
+            if (table600.Lower2[i]<table600.Close[i]) and (trigL2):
                 table600.Buy_Signal2[i] = True
                 open_posL2=True
                 buys2.append(i)
@@ -66,11 +87,11 @@ def history():
                 table600.Buy_Signal2[i] = False
                 table600.Take_Signal[i] = True
                 open_posL2=False
-                #buyorder.append([[buys2[-1]],[i]])
+                trigL2=False
                 takeL2.append(i)
 
         if open_posL3 == False:
-            if table600.Lower3[i]>table600.Low[i]:
+            if (table600.Lower3[i]>table600.Close[i]) and (trigL3):
                 table600.Buy_Signal3[i] = True
                 open_posL3=True
                 buys3.append(i)
@@ -80,11 +101,11 @@ def history():
                 table600.Buy_Signal3[i] = False
                 table600.Take_Signal[i] = True
                 open_posL3=False
-                #buyorder.append([[buys3[-1]],[i]])
+                trigL3=False
                 takeL3.append(i)
 #--------------------------------------------------------------------------------------#
         if open_posU1 == False:
-            if table600.Upper1[i]<table600.High[i]:
+            if (table600.Upper1[i]>table600.Close[i]) and (trigU1):
                 table600.Sell_Signal1[i] = True
                 open_posU1=True
                 sells1.append(i)
@@ -94,11 +115,11 @@ def history():
                 table600.Sell_Signal1[i] = False
                 table600.Take_Signal[i] = True
                 open_posU1=False
-                #sellorder.append([[sells1[-1]],[i]])
                 takeU1.append(i)
+                trigU1 = False
 
         if open_posU2 == False:
-            if table600.Upper2[i]<table600.High[i]:
+            if (table600.Upper2[i]>table600.Close[i]) and (trigU2):
                 table600.Sell_Signal2[i] = True
                 open_posU2=True
                 sells2.append(i)
@@ -108,11 +129,11 @@ def history():
                 table600.Sell_Signal2[i] = False
                 table600.Take_Signal[i] = True
                 open_posU2=False
-                #sellorder.append([[sells2[-1]],[i]])
                 takeU2.append(i)
+                trigU2 = False
 
         if open_posU3 == False:
-            if table600.Upper3[i]<table600.High[i]:
+            if (table600.Upper3[i]>table600.Close[i]) and (trigU3):
                 table600.Sell_Signal3[i] = True
                 open_posU3=True
                 sells3.append(i)
@@ -122,12 +143,9 @@ def history():
                 table600.Sell_Signal3[i] = False
                 table600.Take_Signal[i] = True
                 open_posU3=False
-                #sellorder.append([[sells3[-1]],[i]])
                 takeU3.append(i)
-    
-   
-   # print("buyorders:", buyorder)  
-   # print("sellorders:", sellorder)  
+                trigU3 = False
+
     print("Всего сигналов")
     print(signals)
     print("Расчет..")

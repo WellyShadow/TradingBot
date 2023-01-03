@@ -1,9 +1,9 @@
 import numpy as np
 import bot
-import logic
+import logicv4
 import talib
 import matplotlib.pyplot as plt
 
 #while True:
-logic.history()
+logicv4.history()
 
