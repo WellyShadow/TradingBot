@@ -1,0 +1,28 @@
+/home/welly_shadow1/Bot
+/home/welly_shadow1/Bot/venv/bin/python3
+/home/welly_shadow1/Bot/main.py
+
+cd /etc/systemd/system
+sudo nano bot.service
+
+[Unit]
+Description=bot
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/welly_shadow1/Bot
+ExecStart=/usr/bin/python3 /home/welly_shadow1/Bot/main.py
+
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+sudo systemctl enable bot
+sudo systemctl start bot
+sudo systemctl status bot

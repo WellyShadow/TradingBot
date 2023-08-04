@@ -1,0 +1,2 @@
+api_key = "bimSZd5HxzxK5x80oE5LsIwHybFzbZb8ARBYYaegIMAKK6uNjW5YKICx4Lr3dmW9"
+secret = "9Zmfu76i10DiwhMDhxBYwjk0vVpmktIDK7HC0JxUaQTzAl1jvtXRaRjjxTdXe5kj"
